@@ -9,7 +9,7 @@ class Alkohol:
         self.waga_pusta = waga_pusta
         self.waga_zwazona = waga_zwazona
         self.ilosc_pelnych_buetelek = ilosc_pelnych_butelek
-        self.waga_plynu = self.wylicz_wage_plynu()
+        self.waga_plynu = self.wylicz_wage_plynu()#komentarz------------------------------------------------
 
     def wylicz_wage_plynu(self):
         return round(self.waga_zwazona - self.waga_pusta, 2)
