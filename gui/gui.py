@@ -58,7 +58,7 @@ def akcja_1():
     dane_z_excela = []
 
     try:
-        wb = openpyxl.load_workbook("inwentaryzacja.xlsx")
+        wb = openpyxl.load_workbook("produkty.xlsx")
         arkusz = wb.active
 
         for row in arkusz.iter_rows(min_row=2, max_col=3, values_only=True):
@@ -68,7 +68,7 @@ def akcja_1():
                 lista.insert(tk.END, tekst)
 
     except FileNotFoundError:
-        lista.insert(tk.END, "Nie znaleziono pliku 'inewntaryzacja.xlsx'")
+        lista.insert(tk.END, "Nie znaleziono pliku 'produkty.xlsx'")
     except Exception as e:
         lista.insert(tk.END, f"Błąd: {str(e)}")
 
@@ -116,7 +116,7 @@ def akcja_1():
             print('Nie wszystkie pola zostały uzupełnione!')
             return
         
-        plik = 'inwentaryzacja.xlsx'
+        plik = 'produkty.xlsx'
 
         if os.path.exists(plik):
             wb = openpyxl.load_workbook(plik)
@@ -134,7 +134,7 @@ def akcja_1():
 
     def usun_z_bazy():
         id_val = pole_tekstowe_id_2.get()
-        plik = 'inwentaryzacja.xlsx'
+        plik = 'produkty.xlsx'
         wb = openpyxl.load_workbook(plik)
         arkusz = wb.active
 
