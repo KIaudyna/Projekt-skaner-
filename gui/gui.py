@@ -4,9 +4,9 @@ import openpyxl
 from datetime import date
 import os
 
-#trzeba bedzie podlaczyc do naszego arkusza!!!===================================================================================
+
 def wyczysc():
-        # Czyści prawy panel
+    # Czyści prawy panel
     for widget in prawy_panel.winfo_children():
         widget.destroy()
 
@@ -73,42 +73,43 @@ def akcja_1():
         lista.insert(tk.END, f"Błąd: {str(e)}")
 
     #Dodaj do bazy
-    id_teskt = tk.Label(prawy_panel, text="---------Dodaj do bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_teskt.place(x=20, y=30)
-    tekst = tk.Label(prawy_panel, text="Id:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    tekst.place(x=20, y=60)
-    pole_tekstowe1 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe1.place(x=20, y=90)
+    dodaj_tekst = tk.Label(prawy_panel, text="---------Dodaj do bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    dodaj_tekst.place(x=20, y=30)
 
-    tekst2 = tk.Label(prawy_panel, text="Produkt:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    tekst2.place(x=20, y=120)
-    pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe3.place(x=20, y=150)
+    id_tekst = tk.Label(prawy_panel, text="ID:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst.place(x=20, y=60)
+    pole_tekstowe_id = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_id.place(x=20, y=90)
 
-    tekst3 = tk.Label(prawy_panel, text="Pojemnosc:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    tekst3.place(x=20, y=180)
-    pole_tekstowe4 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe4.place(x=20, y=210)
+    produkt_tekst = tk.Label(prawy_panel, text="Produkt:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    produkt_tekst.place(x=20, y=120)
+    pole_tekstowe_produkt = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_produkt.place(x=20, y=150)
 
-    tekst2 = tk.Label(prawy_panel, text="Waga butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    tekst2.place(x=20, y=240)
-    pole_tekstowe5 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe5.place(x=20, y=270)
+    pojemnosc_tekst = tk.Label(prawy_panel, text="Pojemnosc:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    pojemnosc_tekst.place(x=20, y=180)
+    pole_tekstowe_pojemnosc = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_pojemnosc.place(x=20, y=210)
+
+    waga_tekst = tk.Label(prawy_panel, text="Waga butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_tekst.place(x=20, y=240)
+    pole_tekstowe_waga = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_waga.place(x=20, y=270)
 
 
-    id_teskt = tk.Label(prawy_panel, text="---------Usuń z bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_teskt.place(x=20, y=360)
-    tekst = tk.Label(prawy_panel, text="Id:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    tekst.place(x=20, y=390)
-    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe2.place(x=20, y=420)
+    usun_tekst = tk.Label(prawy_panel, text="---------Usuń z bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    usun_tekst.place(x=20, y=360)
+    id_tekst = tk.Label(prawy_panel, text="ID:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst.place(x=20, y=390)
+    pole_tekstowe_id_2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_id_2.place(x=20, y=420)
 
 
     def zapisz_do_excela():
-        id_val = pole_tekstowe1.get()
-        produkt = pole_tekstowe3.get()
-        pojemnosc_val = pole_tekstowe4.get()
-        waga_val = pole_tekstowe5.get()
+        id_val = pole_tekstowe_id.get()
+        produkt = pole_tekstowe_produkt.get()
+        pojemnosc_val = pole_tekstowe_pojemnosc.get()
+        waga_val = pole_tekstowe_waga.get()
 
 
         if not id_val or not waga_val or not produkt or not pojemnosc_val:
@@ -132,7 +133,7 @@ def akcja_1():
     przycisk_zapisz.place(x=20, y=300)
 
     def usun_z_bazy():
-        id_val = pole_tekstowe2.get()
+        id_val = pole_tekstowe_id_2.get()
         plik = 'inwentaryzacja.xlsx'
         wb = openpyxl.load_workbook(plik)
         arkusz = wb.active
@@ -155,28 +156,28 @@ def akcja_1():
 def akcja_2():
     wyczysc()
     #Id
-    id_tekst = tk.Label(prawy_panel, text="Id produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst = tk.Label(prawy_panel, text="ID produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
-    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
-    pole_tekstowe.place(x=20, y=60)
+    pole_tekstowe_id = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    pole_tekstowe_id.place(x=20, y=60)
 
     #Waga
     waga_tekst = tk.Label(prawy_panel, text="Waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     waga_tekst.place(x=20, y=100)
-    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe2.place(x=20, y=130)
+    pole_tekstowe_waga = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_waga.place(x=20, y=130)
 
     #Ilość pełnych butelek
     butelki_tekst = tk.Label(prawy_panel, text="Pełne butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     butelki_tekst.place(x=20, y=170)
-    pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe3.place(x=20, y=200)
+    pole_tekstowe_butelki = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_butelki.place(x=20, y=200)
 
 
     def zapisz_do_excela():
-        id_val = pole_tekstowe.get()
-        waga_val = pole_tekstowe2.get()
-        butelki_val = pole_tekstowe3.get()
+        id_val = pole_tekstowe_id.get()
+        waga_val = pole_tekstowe_waga.get()
+        butelki_val = pole_tekstowe_butelki.get()
 
         if not id_val or not waga_val or not butelki_val:
             print('Nie wszystkie pola zostały uzupełnione!')
@@ -206,7 +207,7 @@ def akcja_2():
 def akcja_3():
     wyczysc()
     #Id
-    id_tekst = tk.Label(prawy_panel, text="Id produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst = tk.Label(prawy_panel, text="ID produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
     pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe.place(x=20, y=60)
@@ -237,7 +238,7 @@ def akcja_4():
     wyczysc()
 
     #Id
-    id_tekst = tk.Label(prawy_panel, text="Id usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst = tk.Label(prawy_panel, text="ID usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
     pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe.place(x=20, y=60)
@@ -256,7 +257,7 @@ def akcja_5():
     wyczysc()
 
     #Wyszukiwanie po ID
-    id_tekst = tk.Label(prawy_panel, text="Id produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst = tk.Label(prawy_panel, text="ID produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
     pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe.place(x=20, y=60)
