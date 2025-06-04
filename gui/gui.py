@@ -1,6 +1,8 @@
 import tkinter as tk
 from PIL import Image, ImageTk
 import openpyxl 
+from datetime import date
+import os
 
 #trzeba bedzie podlaczyc do naszego arkusza!!!===================================================================================
 def wyczysc():
@@ -13,6 +15,7 @@ def wyczysc():
     tlo_prawe.place(x=0, y=0, relwidth=1, relheight=1)
     tlo_lewe = tk.Label(lewy_panel, image=tlo_lewy_panel)
     tlo_lewe.place(x=0, y=0, relwidth=1, relheight=1)
+
 #---------------------------------------------------------------------------------LISTA PRODUKTÓW
 def akcja_1():
     wyczysc()
@@ -55,7 +58,7 @@ def akcja_1():
     dane_z_excela = []
 
     try:
-        wb = openpyxl.load_workbook("produkty.xlsx")
+        wb = openpyxl.load_workbook("inwentaryzacja.xlsx")
         arkusz = wb.active
 
         for row in arkusz.iter_rows(min_row=2, max_col=3, values_only=True):
@@ -65,7 +68,7 @@ def akcja_1():
                 lista.insert(tk.END, tekst)
 
     except FileNotFoundError:
-        lista.insert(tk.END, "Nie znaleziono pliku 'produkty.xlsx'")
+        lista.insert(tk.END, "Nie znaleziono pliku 'inewntaryzacja.xlsx'")
     except Exception as e:
         lista.insert(tk.END, f"Błąd: {str(e)}")
 
@@ -74,8 +77,8 @@ def akcja_1():
     id_teskt.place(x=20, y=30)
     tekst = tk.Label(prawy_panel, text="Id:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     tekst.place(x=20, y=60)
-    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe2.place(x=20, y=90)
+    pole_tekstowe1 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe1.place(x=20, y=90)
 
     tekst2 = tk.Label(prawy_panel, text="Produkt:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     tekst2.place(x=20, y=120)
@@ -92,8 +95,6 @@ def akcja_1():
     pole_tekstowe5 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe5.place(x=20, y=270)
 
-    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
-    przycisk_zapisz.place(x=20, y=300)
 
     id_teskt = tk.Label(prawy_panel, text="---------Usuń z bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_teskt.place(x=20, y=360)
@@ -102,8 +103,35 @@ def akcja_1():
     pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe2.place(x=20, y=420)
 
-    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12),)
     przycisk_zapisz.place(x=20, y=450)
+
+    def zapisz_do_excela():
+        id_val = pole_tekstowe1.get()
+        produkt = pole_tekstowe3.get()
+        pojemnosc_val = pole_tekstowe4.get()
+        waga_val = pole_tekstowe5.get()
+
+
+        if not id_val or not waga_val or not produkt or not pojemnosc_val:
+            print('Nie wszystkie pola zostały uzupełnione!')
+            return
+        
+        plik = 'inwentaryzacja.xlsx'
+
+        if os.path.exists(plik):
+            wb = openpyxl.load_workbook(plik)
+            arkusz = wb.active
+        
+        data = date.today()
+
+        arkusz.append([id_val, produkt, pojemnosc_val, waga_val, data])
+        wb.save(plik)
+        zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+        zapisano.place(x=20, y=340)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=zapisz_do_excela)
+    przycisk_zapisz.place(x=20, y=300)
 
 
 #---------------------------------------------------------------------------------DODANIE INWENTARYZACJI
@@ -127,8 +155,34 @@ def akcja_2():
     pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe3.place(x=20, y=200)
 
-    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+
+    def zapisz_do_excela():
+        id_val = pole_tekstowe.get()
+        waga_val = pole_tekstowe2.get()
+        butelki_val = pole_tekstowe3.get()
+
+        if not id_val or not waga_val or not butelki_val:
+            print('Nie wszystkie pola zostały uzupełnione!')
+            return
+        
+        plik = 'inwentaryzacja.xlsx'
+
+        if os.path.exists(plik):
+            wb = openpyxl.load_workbook(plik)
+            arkusz = wb.active
+        else:
+            wb = openpyxl.Workbook()
+            arkusz = wb.active
+            arkusz.append(['ID', 'Waga produktu', 'Pełne butelki'])
+        
+        arkusz.append([id_val, waga_val, butelki_val])
+        wb.save(plik)
+        zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+        zapisano.place(x=20, y=280)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=zapisz_do_excela)
     przycisk_zapisz.place(x=20, y=240)
+
 
 
 #---------------------------------------------------------------------------------EDYCJA INWENTARYZACJI
