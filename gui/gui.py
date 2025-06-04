@@ -239,19 +239,40 @@ def akcja_4():
     wyczysc()
 
     #Id
-    id_tekst = tk.Label(prawy_panel, text="ID usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_tekst.place(x=20, y=30)
-    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
-    pole_tekstowe.place(x=20, y=60)
+    id_usuwanego = tk.Label(prawy_panel, text="ID usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_usuwanego.place(x=20, y=30)
+    wejscie_id_usuwanego = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    wejscie_id_usuwanego.place(x=20, y=60)
 
     #Waga
-    waga_tekst = tk.Label(prawy_panel, text="Data wprowadzenia usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_tekst.place(x=20, y=100)
-    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe2.place(x=20, y=130)
+    data_wprowadzenia = tk.Label(prawy_panel, text="Data wprowadzenia usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    data_wprowadzenia.place(x=20, y=100)
+    wejscie_data_wprowadzenia = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    wejscie_data_wprowadzenia.place(x=20, y=130)
 
-    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
-    przycisk_zapisz.place(x=20, y=200)
+
+
+    def usun_z_inwentaryzacji():
+        id_usuwane = wejscie_data_wprowadzenia.get()
+        data = wejscie_data_wprowadzenia.get()
+        plik = 'inwentaryzacja.xlsx'
+        wb = openpyxl.load_workbook(plik)
+        arkusz = wb.active
+
+        for row in range(2, arkusz.max_row + 1):
+            id_z_pliku = str(arkusz.cell(row=row, column=1).value)
+            data_z_pliku = str(arkusz.cell(row=row, column=2).value)
+            if id_z_pliku == str(id_usuwane) and data_z_pliku == str(data):
+                arkusz.delete_rows(row)
+                wb.save(plik)
+                usunieto = tk.Label(prawy_panel, text='Pomyślnie usunięto', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+                usunieto.place(x=180, y=450)
+                return
+        nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+        nie_znaleziono.place(x=180, y=450)
+    przycisk_usun_z_bazy = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=usun_z_inwentaryzacji())
+    przycisk_usun_z_bazy.place(x=20, y=200)
+
 
 #---------------------------------------------------------------------------------STATYSTYKI
 def akcja_5():
