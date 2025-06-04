@@ -203,8 +203,12 @@ def akcja_5():
     pole_tekstowe6.place(x=20, y=200)
 
     #Faktyczna waga
+    faktyczna_waga_tekst = tk.Label(prawy_panel, text="Faktyczna waga produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    faktyczna_waga_tekst.place(x=20, y=240)
 
-
+    #Faktyczna ilość butelek
+    faktyczna_il_butl_tekst = tk.Label(prawy_panel, text='Faktyczna ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    faktyczna_il_butl_tekst.place(x=20, y=310)
 #---------------------------------------------------------------------------------OKNO APLIKACJI
 okno = tk.Tk()
 okno.title("Program inwentaryzacji baru")#nazwa aplikacji
