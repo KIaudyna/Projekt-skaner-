@@ -1,43 +1,172 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import openpyxl 
 
 #trzeba bedzie podlaczyc do naszego arkusza!!!===================================================================================
+def wyczysc():
+        # Czyści prawy panel
+    for widget in prawy_panel.winfo_children():
+        widget.destroy()
+
+    # Odświeżenie tła 
+    tlo_prawe = tk.Label(prawy_panel, image=tlo_prawy_panel)
+    tlo_prawe.place(x=0, y=0, relwidth=1, relheight=1)
+    tlo_lewe = tk.Label(lewy_panel, image=tlo_lewy_panel)
+    tlo_lewe.place(x=0, y=0, relwidth=1, relheight=1)
+#---------------------------------------------------------------------------------LISTA PRODUKTÓW
 def akcja_1():
-    print("Kliknięto Przycisk 1")
+    wyczysc()
 
+    # Pole wyszukiwania
+    szukaj_frame = tk.Frame(lewy_panel, bg="#261d1c")
+    szukaj_frame.place(x=20, y=0, width=560, height=30)
+
+    szukaj_var = tk.StringVar()
+    szukaj_entry = tk.Entry(szukaj_frame, textvariable=szukaj_var, font=("Arial", 12))
+    szukaj_entry.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5, pady=2)
+
+    # Funkcja filtrująca listę po nazwie zaczynającej się od wpisanej frazy
+    def filtruj_liste(event=None):
+        lista.delete(0, tk.END)
+        fraza = szukaj_var.get().lower()
+        for row in dane_z_excela:
+            if row[1].lower().startswith(fraza):
+                tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność:{row[2]}"
+                lista.insert(tk.END, tekst)
+                
+    szukaj_entry.bind('<Return>', filtruj_liste)
+
+    filtruj_btn = tk.Button(szukaj_frame, text="Szukaj", command=filtruj_liste, font=("Arial", 10), bg="#b3685b", fg="#261d1c", activebackground="#453735")
+    filtruj_btn.pack(side=tk.RIGHT, padx=5)
+
+    # Utworzenie listy
+    lista_frame = tk.Frame(lewy_panel, bg="#261d1c")
+    lista_frame.place(x=20, y=30, width=560, height=450)
+
+    scrollbar = tk.Scrollbar(lista_frame)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+    lista = tk.Listbox(lista_frame, yscrollcommand=scrollbar.set, font=("Arial", 12), bg="#b3685b", fg="#261d1c")
+    lista.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    scrollbar.config(command=lista.yview)
+
+    # Wczytanie danych z Excela
+    global dane_z_excela
+    dane_z_excela = []
+
+    try:
+        wb = openpyxl.load_workbook("produkty.xlsx")
+        arkusz = wb.active
+
+        for row in arkusz.iter_rows(min_row=2, max_col=3, values_only=True):
+            if row[0] and row[1] and row[2]:
+                dane_z_excela.append(row)
+                tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność:{row[2]}"
+                lista.insert(tk.END, tekst)
+
+    except FileNotFoundError:
+        lista.insert(tk.END, "Nie znaleziono pliku 'produkty.xlsx'")
+    except Exception as e:
+        lista.insert(tk.END, f"Błąd: {str(e)}")
+#---------------------------------------------------------------------------------DODANIE INWENTARYZACJI
 def akcja_2():
-    print("Kliknięto Przycisk 2")
+    wyczysc()
+    #Id
+    id_teskt = tk.Label(prawy_panel, text="Id produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_teskt.place(x=20, y=30)
+    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    pole_tekstowe.place(x=20, y=60)
 
+    #Waga
+    waga_teskt = tk.Label(prawy_panel, text="Waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_teskt.place(x=20, y=100)
+    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe2.place(x=20, y=130)
+
+    #Ilość pełnych butelek
+    butelki_teskt = tk.Label(prawy_panel, text="Pełne butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    butelki_teskt.place(x=20, y=170)
+    pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe3.place(x=20, y=200)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+    przycisk_zapisz.place(x=20, y=240)
+
+
+#---------------------------------------------------------------------------------EDYCJA INWENTARYZACJI
 def akcja_3():
-    print("Kliknięto Przycisk 3")
+    wyczysc()
+    #Id
+    id_teskt = tk.Label(prawy_panel, text="Id produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_teskt.place(x=20, y=30)
+    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    pole_tekstowe.place(x=20, y=60)
 
+    #data dodania
+    waga_teskt = tk.Label(prawy_panel, text="Data dodania produktu do zmiany:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_teskt.place(x=20, y=100)
+    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe2.place(x=20, y=130)
+
+    #Nowa poprawna waga
+    waga_teskt = tk.Label(prawy_panel, text="Nowa, poprawna waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_teskt.place(x=20, y=170)
+    pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe3.place(x=20, y=200)
+
+    #Ilość pełnych butelek
+    butelki_teskt = tk.Label(prawy_panel, text="Poprawna ilość pełnych butelek:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    butelki_teskt.place(x=20, y=240)
+    pole_tekstowe4 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe4.place(x=20, y=270)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź zmiany", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+    przycisk_zapisz.place(x=20, y=310)
+    
+#---------------------------------------------------------------------------------USUWANIE INWENTARYZACJI 
 def akcja_4():
-    print("Kliknięto Przycisk 4")
+    wyczysc()
 
+    #Id
+    id_teskt = tk.Label(prawy_panel, text="Id usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_teskt.place(x=20, y=30)
+    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    pole_tekstowe.place(x=20, y=60)
+
+    #Waga
+    waga_teskt = tk.Label(prawy_panel, text="Data wprowadzenia usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_teskt.place(x=20, y=100)
+    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe2.place(x=20, y=130)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+    przycisk_zapisz.place(x=20, y=170)
+
+#---------------------------------------------------------------------------------STATYSTYKI
 def akcja_5():
-    print("Kliknięto Przycisk 5")
+    wyczysc()
 
-def akcja_6():
-    print("Kliknięto Przycisk 6")
 
-def akcja_7():
-    print("Kliknięto Przycisk 7")
-
+#---------------------------------------------------------------------------------OKNO APLIKACJI
 okno = tk.Tk()
-okno.title("Program do inwentaryzacji baru")
-okno.geometry("1000x600")
+okno.title("Program inwentaryzacji baru")#nazwa aplikacji
+okno.geometry("1000x600")#wymiary okna - najlepiej nie zmieniac
 
+#---------------------------------------------------------------------------------PANELE (WYMIARY, USTAWIENIE)
+#menu
 gorny_panel = tk.Frame(okno, width=1000, height=70, bg="#291612", bd=2, relief="raised", highlightthickness=3, highlightbackground="black")
 gorny_panel.place(x=0, y=0)
 
+#lewy panel (tylko poglądowy)
 lewy_panel = tk.Frame(okno, width=600, height=530, highlightthickness=3, highlightbackground="black")
 lewy_panel.place(x=0, y=70)
 
+#prawy panel (interaktywny)
 prawy_panel = tk.Frame(okno, width=400, height=530, highlightthickness=3, highlightbackground="black")
 prawy_panel.place(x=600, y=70)
 
 
-
+#---------------------------------------------------------------------------------PANELE (USTAWIENIE GRAFIK)
 grafika_lewy_panel = Image.open("tlol2.jpeg")
 grafika_lewy_panel = grafika_lewy_panel.resize((600, 600), Image.Resampling.LANCZOS)
 tlo_lewy_panel = ImageTk.PhotoImage(grafika_lewy_panel)
@@ -58,7 +187,7 @@ tlo_prawe.place(x=0, y=0, relwidth=1, relheight=1)
 gorny_panel = tk.Label(gorny_panel, image=tlo_gorny_panel)
 gorny_panel.place(x=0, y=0, relwidth=1, relheight=1)
 
-
+#---------------------------------------------------------------------------------PRZYCISKI, MOŻNA DODAĆ WIĘCEJ - NIE WYSYPIE SIE
 btn1 = tk.Button(gorny_panel, text="Lista produktów", command=akcja_1, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn1.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
@@ -68,16 +197,11 @@ btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 btn3 = tk.Button(gorny_panel, text="Edytuj inwentaryzacje", command=akcja_3, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn3.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
-btn4 = tk.Button(gorny_panel, text="Wyeksportuj", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
+btn4 = tk.Button(gorny_panel, text="Usuń inwentaryzacje", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn4.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
 btn5 = tk.Button(gorny_panel, text="Wyświetl statystyki", command=akcja_5, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
-# mozemy dodawac przyciski do woli======================================================================================================
-# btn6 = tk.Button(gorny_panel, text="Przycisk 6", command=akcja_6, bg="#261d1c", fg="#b3685b")
-# btn6.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-# btn7 = tk.Button(gorny_panel, text="Przycisk 7", command=akcja_7, bg="#261d1c", fg="#b3685b")
-# btn7.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-
 okno.mainloop()
+
