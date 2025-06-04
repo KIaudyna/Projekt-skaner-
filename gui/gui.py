@@ -33,7 +33,7 @@ def akcja_1():
             if row[1].lower().startswith(fraza):
                 tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność:{row[2]}"
                 lista.insert(tk.END, tekst)
-                
+
     szukaj_entry.bind('<Return>', filtruj_liste)
 
     filtruj_btn = tk.Button(szukaj_frame, text="Szukaj", command=filtruj_liste, font=("Arial", 10), bg="#b3685b", fg="#261d1c", activebackground="#453735")
@@ -72,20 +72,20 @@ def akcja_1():
 def akcja_2():
     wyczysc()
     #Id
-    id_teskt = tk.Label(prawy_panel, text="Id produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_teskt.place(x=20, y=30)
+    id_tekst = tk.Label(prawy_panel, text="Id produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst.place(x=20, y=30)
     pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe.place(x=20, y=60)
 
     #Waga
-    waga_teskt = tk.Label(prawy_panel, text="Waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_teskt.place(x=20, y=100)
+    waga_tekst = tk.Label(prawy_panel, text="Waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_tekst.place(x=20, y=100)
     pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe2.place(x=20, y=130)
 
     #Ilość pełnych butelek
-    butelki_teskt = tk.Label(prawy_panel, text="Pełne butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    butelki_teskt.place(x=20, y=170)
+    butelki_tekst = tk.Label(prawy_panel, text="Pełne butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    butelki_tekst.place(x=20, y=170)
     pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe3.place(x=20, y=200)
 
@@ -97,26 +97,26 @@ def akcja_2():
 def akcja_3():
     wyczysc()
     #Id
-    id_teskt = tk.Label(prawy_panel, text="Id produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_teskt.place(x=20, y=30)
+    id_tekst = tk.Label(prawy_panel, text="Id produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst.place(x=20, y=30)
     pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe.place(x=20, y=60)
 
     #data dodania
-    waga_teskt = tk.Label(prawy_panel, text="Data dodania produktu do zmiany:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_teskt.place(x=20, y=100)
+    waga_tekst = tk.Label(prawy_panel, text="Data dodania produktu do zmiany:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_tekst.place(x=20, y=100)
     pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe2.place(x=20, y=130)
 
     #Nowa poprawna waga
-    waga_teskt = tk.Label(prawy_panel, text="Nowa, poprawna waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_teskt.place(x=20, y=170)
+    waga_tekst = tk.Label(prawy_panel, text="Nowa, poprawna waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_tekst.place(x=20, y=170)
     pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe3.place(x=20, y=200)
 
     #Ilość pełnych butelek
-    butelki_teskt = tk.Label(prawy_panel, text="Poprawna ilość pełnych butelek:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    butelki_teskt.place(x=20, y=240)
+    butelki_tekst = tk.Label(prawy_panel, text="Poprawna ilość pełnych butelek:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    butelki_tekst.place(x=20, y=240)
     pole_tekstowe4 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe4.place(x=20, y=270)
 
@@ -128,23 +128,43 @@ def akcja_4():
     wyczysc()
 
     #Id
-    id_teskt = tk.Label(prawy_panel, text="Id usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_teskt.place(x=20, y=30)
+    id_tekst = tk.Label(prawy_panel, text="Id usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst.place(x=20, y=30)
     pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe.place(x=20, y=60)
 
     #Waga
-    waga_teskt = tk.Label(prawy_panel, text="Data wprowadzenia usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_teskt.place(x=20, y=100)
+    waga_tekst = tk.Label(prawy_panel, text="Data wprowadzenia usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_tekst.place(x=20, y=100)
     pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe2.place(x=20, y=130)
 
     przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
-    przycisk_zapisz.place(x=20, y=170)
+    przycisk_zapisz.place(x=20, y=200)
 
 #---------------------------------------------------------------------------------STATYSTYKI
 def akcja_5():
     wyczysc()
+
+    #Wyszukiwanie po ID
+    id_tekst = tk.Label(prawy_panel, text="Id produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_tekst.place(x=20, y=30)
+    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    pole_tekstowe.place(x=20, y=60)
+
+    #Przewidywana waga
+    przewidywana_waga_tekst = tk.Label(prawy_panel, text='Przewidywana waga produktu:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    przewidywana_waga_tekst.place(x=20, y=100)
+    pole_tekstowe5 = tk.Entry(prawy_panel, width=30, bg='#b3685b')
+    pole_tekstowe5.place(x=20, y=130)
+
+    #Przewidywana ilość butelek
+    przewidywana_il_butl_tekst = tk.Label(prawy_panel, text='Przewidywana ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    przewidywana_il_butl_tekst.place(x=20, y=170)
+    pole_tekstowe6 = tk.Entry(prawy_panel, width=30, bg='#b3685b')
+    pole_tekstowe6.place(x=20, y=200)
+
+    #Faktyczna waga
 
 
 #---------------------------------------------------------------------------------OKNO APLIKACJI
