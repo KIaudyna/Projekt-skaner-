@@ -4,7 +4,6 @@ import openpyxl
 from datetime import date
 import os
 
-
 def wyczysc():
     # Czyści prawy panel
     for widget in prawy_panel.winfo_children():
@@ -103,7 +102,6 @@ def akcja_1():
     id_tekst.place(x=20, y=390)
     pole_tekstowe_id_2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe_id_2.place(x=20, y=420)
-
 
     def zapisz_do_excela():
         id_val = pole_tekstowe_id.get()
@@ -219,30 +217,20 @@ def akcja_3():
     pole_tekstowe_id = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe_id.place(x=20, y=60)
 
-    #data dodania
-    data_tekst = tk.Label(prawy_panel, text="Data dodania produktu do zmiany:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    data_tekst.place(x=20, y=100)
-    pole_tekstowe_data = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe_data.place(x=20, y=130)
-
     #Nowa poprawna waga
     waga_tekst = tk.Label(prawy_panel, text="Nowa, poprawna waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_tekst.place(x=20, y=170)
+    waga_tekst.place(x=20, y=100)
     pole_tekstowe_waga = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe_waga.place(x=20, y=200)
+    pole_tekstowe_waga.place(x=20, y=130)
 
     #Ilość pełnych butelek
     butelki_tekst = tk.Label(prawy_panel, text="Poprawna ilość pełnych butelek:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    butelki_tekst.place(x=20, y=240)
+    butelki_tekst.place(x=20, y=170)
     pole_tekstowe_butelki = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe_butelki.place(x=20, y=270)
-
-    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź zmiany", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
-    przycisk_zapisz.place(x=20, y=310)
+    pole_tekstowe_butelki.place(x=20, y=200)
 
     def edycja():
         id_val = pole_tekstowe_id.get()
-        data = pole_tekstowe_data.get()
         waga = pole_tekstowe_waga.get()
         butelki_val = pole_tekstowe_butelki.get()
 
@@ -250,7 +238,7 @@ def akcja_3():
         wb = openpyxl.load_workbook(plik)
         arkusz = wb.active
 
-        if not id_val or not data or not waga or not butelki_val:
+        if not id_val or not waga or not butelki_val:
             print('Nie wszystkie pola zostały uzupełnione!')
             return
         
@@ -262,13 +250,13 @@ def akcja_3():
                 wb.save(plik)
 
                 zmieniono = tk.Label(prawy_panel, text='Pomyślnie zmieniono', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-                zmieniono.place(x=20, y=350)
+                zmieniono.place(x=20, y=280)
                 return
         nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-        nie_znaleziono.place(x=180, y=450)
+        nie_znaleziono.place(x=20, y=280)
 
-    przycisk_usun = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=edycja)
-    przycisk_usun.place(x=20, y=450)
+    zamiana = tk.Button(prawy_panel, text="Zatwierdź zmianę", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=edycja)
+    zamiana.place(x=20, y=250)
 
         
 #---------------------------------------------------------------------------------USUWANIE INWENTARYZACJI 
@@ -294,12 +282,13 @@ def akcja_4():
                 arkusz.delete_rows(row)
                 wb.save(plik)
                 usunieto = tk.Label(prawy_panel, text='Pomyślnie usunięto', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-                usunieto.place(x=180, y=450)
+                usunieto.place(x=20, y=150)
                 return
         nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-        nie_znaleziono.place(x=180, y=450)
+        nie_znaleziono.place(x=20, y=150)
+        
     przycisk_usun_z_bazy = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=usun_z_inwentaryzacji)
-    przycisk_usun_z_bazy.place(x=20, y=200)
+    przycisk_usun_z_bazy.place(x=20, y=100)
 
 
 #---------------------------------------------------------------------------------STATYSTYKI
