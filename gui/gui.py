@@ -35,7 +35,7 @@ def akcja_1():
                 lista.insert(tk.END, tekst)
 
     szukaj_entry.bind('<Return>', filtruj_liste)
-
+    
     filtruj_btn = tk.Button(szukaj_frame, text="Szukaj", command=filtruj_liste, font=("Arial", 10), bg="#b3685b", fg="#261d1c", activebackground="#453735")
     filtruj_btn.pack(side=tk.RIGHT, padx=5)
 
@@ -68,6 +68,44 @@ def akcja_1():
         lista.insert(tk.END, "Nie znaleziono pliku 'produkty.xlsx'")
     except Exception as e:
         lista.insert(tk.END, f"Błąd: {str(e)}")
+
+    #Dodaj do bazy
+    id_teskt = tk.Label(prawy_panel, text="---------Dodaj do bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_teskt.place(x=20, y=30)
+    tekst = tk.Label(prawy_panel, text="Id:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    tekst.place(x=20, y=60)
+    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe2.place(x=20, y=90)
+
+    tekst2 = tk.Label(prawy_panel, text="Produkt:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    tekst2.place(x=20, y=120)
+    pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe3.place(x=20, y=150)
+
+    tekst3 = tk.Label(prawy_panel, text="Pojemnosc:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    tekst3.place(x=20, y=180)
+    pole_tekstowe4 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe4.place(x=20, y=210)
+
+    tekst2 = tk.Label(prawy_panel, text="Waga butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    tekst2.place(x=20, y=240)
+    pole_tekstowe5 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe5.place(x=20, y=270)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+    przycisk_zapisz.place(x=20, y=300)
+
+    id_teskt = tk.Label(prawy_panel, text="---------Usuń z bazy---------", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    id_teskt.place(x=20, y=360)
+    tekst = tk.Label(prawy_panel, text="Id:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    tekst.place(x=20, y=390)
+    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe2.place(x=20, y=420)
+
+    przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
+    przycisk_zapisz.place(x=20, y=450)
+
+
 #---------------------------------------------------------------------------------DODANIE INWENTARYZACJI
 def akcja_2():
     wyczysc()
