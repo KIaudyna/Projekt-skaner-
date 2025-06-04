@@ -119,6 +119,10 @@ def akcja_1():
         if os.path.exists(plik):
             wb = openpyxl.load_workbook(plik)
             arkusz = wb.active
+        else:
+            wb = openpyxl.Workbook()
+            arkusz = wb.active
+            arkusz.append(["ID", "Produkt", "Pojemność", "Waga", "Data"])
         
         data = date.today()
 
@@ -382,7 +386,6 @@ btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
 btn3 = tk.Button(gorny_panel, text="Edytuj inwentaryzacje", command=akcja_3, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn3.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-
 btn4 = tk.Button(gorny_panel, text="Usuń inwentaryzacje", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn4.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
