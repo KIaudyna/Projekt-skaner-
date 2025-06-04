@@ -185,6 +185,7 @@ def akcja_2():
         id_val = pole_tekstowe_id.get()
         waga_val = pole_tekstowe_waga.get()
         butelki_val = pole_tekstowe_butelki.get()
+        produkt_val = pole_tekstowe_produkt.get()
         data = date.today()
 
         if not id_val or not waga_val or not butelki_val:
@@ -199,9 +200,9 @@ def akcja_2():
         else:
             wb = openpyxl.Workbook()
             arkusz = wb.active
-            arkusz.append(['ID', 'Data', 'Waga produktu', 'Pełne butelki'])
+            arkusz.append(['ID', 'Data', 'Waga produktu', 'Pełne butelki','Waga płynu'])
         
-        arkusz.append([id_val, data, waga_val, butelki_val])
+        arkusz.append([id_val, data, waga_val, butelki_val, produkt_val])
         wb.save(plik)
         zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
         zapisano.place(x=20, y=350)
