@@ -64,7 +64,7 @@ def akcja_1():
         for row in arkusz.iter_rows(min_row=2, max_col=3, values_only=True):
             if row[0] and row[1] and row[2]:
                 dane_z_excela.append(row)
-                tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność:{row[2]}"
+                tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność: {row[2]}"
                 lista.insert(tk.END, tekst)
 
     except FileNotFoundError:
@@ -179,8 +179,6 @@ def akcja_2():
     pole_tekstowe_butelki = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe_butelki.place(x=20, y=270)
 
-
-
     def zapisz_do_excela():
         id_val = pole_tekstowe_id.get()
         waga_val = pole_tekstowe_waga.get()
@@ -218,30 +216,61 @@ def akcja_3():
     #Id
     id_tekst = tk.Label(prawy_panel, text="ID produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
-    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
-    pole_tekstowe.place(x=20, y=60)
+    pole_tekstowe_id = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
+    pole_tekstowe_id.place(x=20, y=60)
 
     #data dodania
-    waga_tekst = tk.Label(prawy_panel, text="Data dodania produktu do zmiany:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_tekst.place(x=20, y=100)
-    pole_tekstowe2 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe2.place(x=20, y=130)
+    data_tekst = tk.Label(prawy_panel, text="Data dodania produktu do zmiany:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    data_tekst.place(x=20, y=100)
+    pole_tekstowe_data = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_data.place(x=20, y=130)
 
     #Nowa poprawna waga
     waga_tekst = tk.Label(prawy_panel, text="Nowa, poprawna waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     waga_tekst.place(x=20, y=170)
-    pole_tekstowe3 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe3.place(x=20, y=200)
+    pole_tekstowe_waga = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_waga.place(x=20, y=200)
 
     #Ilość pełnych butelek
     butelki_tekst = tk.Label(prawy_panel, text="Poprawna ilość pełnych butelek:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     butelki_tekst.place(x=20, y=240)
-    pole_tekstowe4 = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe4.place(x=20, y=270)
+    pole_tekstowe_butelki = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_butelki.place(x=20, y=270)
 
     przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź zmiany", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12))
     przycisk_zapisz.place(x=20, y=310)
-    
+
+    def edycja():
+        id_val = pole_tekstowe_id.get()
+        data = pole_tekstowe_data.get()
+        waga = pole_tekstowe_waga.get()
+        butelki_val = pole_tekstowe_butelki.get()
+
+        plik = 'inwentaryzacja.xlsx'
+        wb = openpyxl.load_workbook(plik)
+        arkusz = wb.active
+
+        if not id_val or not data or not waga or not butelki_val:
+            print('Nie wszystkie pola zostały uzupełnione!')
+            return
+        
+        for row in range(2, arkusz.max_row + 1):
+            id_z_pliku = str(arkusz.cell(row=row, column=1).value)
+            if id_z_pliku == str(id_val):
+                arkusz.cell(row=row, column=3).value = waga
+                arkusz.cell(row=row, column=4).value = butelki_val
+                wb.save(plik)
+
+                zmieniono = tk.Label(prawy_panel, text='Pomyślnie zmieniono', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+                zmieniono.place(x=20, y=350)
+                return
+        nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+        nie_znaleziono.place(x=180, y=450)
+
+    przycisk_usun = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=edycja)
+    przycisk_usun.place(x=20, y=450)
+
+        
 #---------------------------------------------------------------------------------USUWANIE INWENTARYZACJI 
 def akcja_4():
     wyczysc()
@@ -252,25 +281,16 @@ def akcja_4():
     wejscie_id_usuwanego = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     wejscie_id_usuwanego.place(x=20, y=60)
 
-    #Waga
-    data_wprowadzenia = tk.Label(prawy_panel, text="Data wprowadzenia usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    data_wprowadzenia.place(x=20, y=100)
-    wejscie_data_wprowadzenia = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    wejscie_data_wprowadzenia.place(x=20, y=130)
-
-
 
     def usun_z_inwentaryzacji():
-        id_usuwane = wejscie_data_wprowadzenia.get()
-        data = wejscie_data_wprowadzenia.get()
+        id_usuwane = wejscie_id_usuwanego.get()
         plik = 'inwentaryzacja.xlsx'
         wb = openpyxl.load_workbook(plik)
         arkusz = wb.active
 
         for row in range(2, arkusz.max_row + 1):
             id_z_pliku = str(arkusz.cell(row=row, column=1).value)
-            data_z_pliku = str(arkusz.cell(row=row, column=2).value)
-            if id_z_pliku == str(id_usuwane) and data_z_pliku == str(data):
+            if id_z_pliku == str(id_usuwane):
                 arkusz.delete_rows(row)
                 wb.save(plik)
                 usunieto = tk.Label(prawy_panel, text='Pomyślnie usunięto', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
@@ -278,7 +298,7 @@ def akcja_4():
                 return
         nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
         nie_znaleziono.place(x=180, y=450)
-    przycisk_usun_z_bazy = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=usun_z_inwentaryzacji())
+    przycisk_usun_z_bazy = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=usun_z_inwentaryzacji)
     przycisk_usun_z_bazy.place(x=20, y=200)
 
 
