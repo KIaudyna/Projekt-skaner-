@@ -126,10 +126,10 @@ def akcja_1():
         arkusz.append([id_val, produkt, pojemnosc_val, waga_val, data])
         wb.save(plik)
         zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-        zapisano.place(x=20, y=350)
+        zapisano.place(x=170, y=300)
     
     przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=zapisz_do_excela)
-    przycisk_zapisz.place(x=20, y=270)
+    przycisk_zapisz.place(x=20, y=300)
 
     def usun_z_bazy():
         id_val = pole_tekstowe1.get()
@@ -137,18 +137,19 @@ def akcja_1():
         wb = openpyxl.load_workbook(plik)
         arkusz = wb.active
 
-        for wiersz in range(2, arkusz.max_row + 1):
+        for row in range(2, arkusz.max_row + 1):
             id_z_pliku = str(arkusz.cell(row=row, column=1).value)
             if id_z_pliku == str(id_val):
                 arkusz.delete_rows(row)
                 wb.save(plik)
                 usunieto = tk.Label(prawy_panel, text='Pomyślnie usunięto', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-                usunieto.place(x=20, y=340)
+                usunieto.place(x=180, y=340)
                 return
-        nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu o podanym ID', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+        nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+        nie_znaleziono.place(x=180, y=450)
 
-    przycisk_usun = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12),)
-    przycisk_zapisz.place(x=20, y=450)
+    przycisk_usun = tk.Button(prawy_panel, text="Zatwierdź usunięcie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=usun_z_bazy)
+    przycisk_usun.place(x=20, y=450)
 
 #---------------------------------------------------------------------------------DODANIE INWENTARYZACJI
 def akcja_2():
