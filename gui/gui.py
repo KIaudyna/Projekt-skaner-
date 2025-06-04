@@ -161,17 +161,24 @@ def akcja_2():
     pole_tekstowe_id = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
     pole_tekstowe_id.place(x=20, y=60)
 
+    #Produkt
+    produkt_tekst = tk.Label(prawy_panel, text="Nazwa produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    produkt_tekst.place(x=20, y=100)
+    pole_tekstowe_produkt = tk.Entry(prawy_panel, width=30, bg="#b3685b")
+    pole_tekstowe_produkt.place(x=20, y=130)
+
     #Waga
     waga_tekst = tk.Label(prawy_panel, text="Waga (butelka + płyn):", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    waga_tekst.place(x=20, y=100)
+    waga_tekst.place(x=20, y=170)
     pole_tekstowe_waga = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe_waga.place(x=20, y=130)
+    pole_tekstowe_waga.place(x=20, y=200)
 
     #Ilość pełnych butelek
     butelki_tekst = tk.Label(prawy_panel, text="Pełne butelki:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    butelki_tekst.place(x=20, y=170)
+    butelki_tekst.place(x=20, y=240)
     pole_tekstowe_butelki = tk.Entry(prawy_panel, width=30, bg="#b3685b")
-    pole_tekstowe_butelki.place(x=20, y=200)
+    pole_tekstowe_butelki.place(x=20, y=270)
+
 
 
     def zapisz_do_excela():
@@ -197,10 +204,10 @@ def akcja_2():
         arkusz.append([id_val, data, waga_val, butelki_val])
         wb.save(plik)
         zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-        zapisano.place(x=20, y=280)
+        zapisano.place(x=20, y=350)
 
     przycisk_zapisz = tk.Button(prawy_panel, text="Zatwierdź dodanie", bg="#b3685b", fg="#261d1c", activebackground="#453735", font=("Arial", 12), command=zapisz_do_excela)
-    przycisk_zapisz.place(x=20, y=240)
+    przycisk_zapisz.place(x=20, y=310)
 
 
 
