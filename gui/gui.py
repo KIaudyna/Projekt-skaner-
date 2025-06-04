@@ -34,7 +34,7 @@ def akcja_1():
         fraza = szukaj_var.get().lower()
         for row in dane_z_excela:
             if row[1].lower().startswith(fraza):
-                tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność:{row[2]}"
+                tekst = f"ID: {row[0]}  |  Produkt: {row[1]}  |  Pojemność: {row[2]}"
                 lista.insert(tk.END, tekst)
 
     szukaj_entry.bind('<Return>', filtruj_liste)
@@ -132,7 +132,7 @@ def akcja_1():
     przycisk_zapisz.place(x=20, y=300)
 
     def usun_z_bazy():
-        id_val = pole_tekstowe1.get()
+        id_val = pole_tekstowe2.get()
         plik = 'inwentaryzacja.xlsx'
         wb = openpyxl.load_workbook(plik)
         arkusz = wb.active
@@ -143,7 +143,7 @@ def akcja_1():
                 arkusz.delete_rows(row)
                 wb.save(plik)
                 usunieto = tk.Label(prawy_panel, text='Pomyślnie usunięto', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-                usunieto.place(x=180, y=340)
+                usunieto.place(x=180, y=450)
                 return
         nie_znaleziono = tk.Label(prawy_panel, text='Nie znaleziono produktu', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
         nie_znaleziono.place(x=180, y=450)
