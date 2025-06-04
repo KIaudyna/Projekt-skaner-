@@ -162,7 +162,7 @@ def akcja_2():
     pole_tekstowe_id.place(x=20, y=60)
 
     #Waga
-    waga_tekst = tk.Label(prawy_panel, text="Waga:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
+    waga_tekst = tk.Label(prawy_panel, text="Waga (butelka + płyn):", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     waga_tekst.place(x=20, y=100)
     pole_tekstowe_waga = tk.Entry(prawy_panel, width=30, bg="#b3685b")
     pole_tekstowe_waga.place(x=20, y=130)
@@ -178,6 +178,7 @@ def akcja_2():
         id_val = pole_tekstowe_id.get()
         waga_val = pole_tekstowe_waga.get()
         butelki_val = pole_tekstowe_butelki.get()
+        data = date.today()
 
         if not id_val or not waga_val or not butelki_val:
             print('Nie wszystkie pola zostały uzupełnione!')
@@ -191,9 +192,9 @@ def akcja_2():
         else:
             wb = openpyxl.Workbook()
             arkusz = wb.active
-            arkusz.append(['ID', 'Waga produktu', 'Pełne butelki'])
+            arkusz.append(['ID', 'Data', 'Waga produktu', 'Pełne butelki'])
         
-        arkusz.append([id_val, waga_val, butelki_val])
+        arkusz.append([id_val, data, waga_val, butelki_val])
         wb.save(plik)
         zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
         zapisano.place(x=20, y=280)
