@@ -126,6 +126,10 @@ def akcja_1():
         if os.path.exists(plik):
             wb = openpyxl.load_workbook(plik)
             arkusz = wb.active
+        else:
+            wb = openpyxl.Workbook()
+            arkusz = wb.active
+            arkusz.append(["ID", "Produkt", "Pojemność", "Waga", "Data"])
         
         data = date.today()
 
@@ -317,6 +321,7 @@ def akcja_4():
     przycisk_usun_z_bazy.place(x=20, y=100)
 
 
+<<<<<<< HEAD
 #---------------------------------------------------------------------------------STATYSTYKI
 def akcja_5():
     cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
@@ -352,6 +357,8 @@ def akcja_5():
     except Exception as e:
         lista.insert(tk.END, f"Błąd: {str(e)}")
 
+=======
+>>>>>>> a942df92a9007976a15889813354bd13d5fba974
 #---------------------------------------------------------------------------------OKNO APLIKACJI
 okno = tk.Tk()
 okno.title("Program inwentaryzacji baru")#nazwa aplikacji
@@ -401,12 +408,14 @@ btn2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
 btn3 = tk.Button(gorny_panel, text="Edytuj inwentaryzacje", command=akcja_3, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn3.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-
 btn4 = tk.Button(gorny_panel, text="Usuń inwentaryzacje", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn4.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
+<<<<<<< HEAD
 btn5 = tk.Button(gorny_panel, text="Wyświetl inwentaryzacje", command=akcja_5, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+=======
+>>>>>>> a942df92a9007976a15889813354bd13d5fba974
 
 okno.mainloop()
 
