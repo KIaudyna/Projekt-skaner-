@@ -207,7 +207,7 @@ def akcja_2():
         szukane_id = pole_tekstowe_id.get()
 
         for row in arkusz_laczenie.iter_rows(min_row=2, values_only=True):
-            id_wiersza, nazwa = row[0], row[1]
+            id_wiersza, nazwa, waga_butelki = row[0], row[1], row[3]
             if str(id_wiersza) == szukane_id:
                 print(f"Nazwa dla ID={szukane_id}: {nazwa}")
 
@@ -215,7 +215,10 @@ def akcja_2():
         else:
             print(f"Nie znaleziono ID={szukane_id}")
 
-        arkusz.append([id_val, data, waga_val, butelki_val, nazwa])
+
+        waga_plynu = int(waga_val) - int(waga_butelki)
+
+        arkusz.append([id_val, data, waga_val, butelki_val, nazwa, waga_butelki, waga_plynu])
         wb.save(plik)
         zapisano = tk.Label(prawy_panel, text='Pomyślnie zapisano', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
         zapisano.place(x=20, y=280)
@@ -337,6 +340,37 @@ def akcja_5():
     #Faktyczna ilość butelek
     faktyczna_il_butl_tekst = tk.Label(prawy_panel, text='Faktyczna ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     faktyczna_il_butl_tekst.place(x=20, y=310)
+
+        # Utworzenie listy
+    lista_frame = tk.Frame(lewy_panel, bg="#261d1c")
+    lista_frame.place(x=20, y=30, width=560, height=450)
+
+    scrollbar = tk.Scrollbar(lista_frame)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+    lista = tk.Listbox(lista_frame, yscrollcommand=scrollbar.set, font=("Arial", 12), bg="#b3685b", fg="#261d1c")
+    lista.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    scrollbar.config(command=lista.yview)
+
+    # Wczytanie danych z Excela
+    global dane_z_excela
+    dane_z_excela = []
+
+    try:
+        wb = openpyxl.load_workbook("inwentaryzacja.xlsx")
+        arkusz = wb.active
+
+        for row in arkusz.iter_rows(min_row=2, max_col=7, values_only=True):
+            if len(row) >= 7 and row[0] and row[1] and row[2]:
+                dane_z_excela.append(row)
+                tekst = f"{row[4]} | Data: {row[1]}  | Całe: {row[3]} | Waga zawartości: {row[5]}g"
+                lista.insert(tk.END, tekst)
+
+    except FileNotFoundError:
+        lista.insert(tk.END, "Nie znaleziono pliku 'produkty.xlsx'")
+    except Exception as e:
+        lista.insert(tk.END, f"Błąd: {str(e)}")
+
 #---------------------------------------------------------------------------------OKNO APLIKACJI
 okno = tk.Tk()
 okno.title("Program inwentaryzacji baru")#nazwa aplikacji
