@@ -408,11 +408,8 @@ btn3.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 btn4 = tk.Button(gorny_panel, text="Usuń inwentaryzacje", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn4.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
-<<<<<<< HEAD
 btn5 = tk.Button(gorny_panel, text="Wyświetl inwentaryzacje", command=akcja_5, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
-=======
->>>>>>> a942df92a9007976a15889813354bd13d5fba974
 
 okno.mainloop()
 
