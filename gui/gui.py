@@ -311,66 +311,6 @@ def akcja_4():
     przycisk_usun_z_bazy.place(x=20, y=100)
 
 
-#---------------------------------------------------------------------------------STATYSTYKI
-def akcja_5():
-    wyczysc()
-
-    #Wyszukiwanie po ID
-    id_tekst = tk.Label(prawy_panel, text="ID produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_tekst.place(x=20, y=30)
-    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
-    pole_tekstowe.place(x=20, y=60)
-
-    #Przewidywana waga
-    przewidywana_waga_tekst = tk.Label(prawy_panel, text='Przewidywana waga produktu:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    przewidywana_waga_tekst.place(x=20, y=100)
-    pole_tekstowe5 = tk.Entry(prawy_panel, width=30, bg='#b3685b')
-    pole_tekstowe5.place(x=20, y=130)
-
-    #Przewidywana ilość butelek
-    przewidywana_il_butl_tekst = tk.Label(prawy_panel, text='Przewidywana ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    przewidywana_il_butl_tekst.place(x=20, y=170)
-    pole_tekstowe6 = tk.Entry(prawy_panel, width=30, bg='#b3685b')
-    pole_tekstowe6.place(x=20, y=200)
-
-    #Faktyczna waga
-    faktyczna_waga_tekst = tk.Label(prawy_panel, text="Faktyczna waga produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    faktyczna_waga_tekst.place(x=20, y=240)
-
-    #Faktyczna ilość butelek
-    faktyczna_il_butl_tekst = tk.Label(prawy_panel, text='Faktyczna ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    faktyczna_il_butl_tekst.place(x=20, y=310)
-
-        # Utworzenie listy
-    lista_frame = tk.Frame(lewy_panel, bg="#261d1c")
-    lista_frame.place(x=20, y=30, width=560, height=450)
-
-    scrollbar = tk.Scrollbar(lista_frame)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
-
-    lista = tk.Listbox(lista_frame, yscrollcommand=scrollbar.set, font=("Arial", 12), bg="#b3685b", fg="#261d1c")
-    lista.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    scrollbar.config(command=lista.yview)
-
-    # Wczytanie danych z Excela
-    global dane_z_excela
-    dane_z_excela = []
-
-    try:
-        wb = openpyxl.load_workbook("inwentaryzacja.xlsx")
-        arkusz = wb.active
-
-        for row in arkusz.iter_rows(min_row=2, max_col=7, values_only=True):
-            if len(row) >= 7 and row[0] and row[1] and row[2]:
-                dane_z_excela.append(row)
-                tekst = f"{row[4]} | Data: {row[1]}  | Całe: {row[3]} | Waga zawartości: {row[5]}g"
-                lista.insert(tk.END, tekst)
-
-    except FileNotFoundError:
-        lista.insert(tk.END, "Nie znaleziono pliku 'produkty.xlsx'")
-    except Exception as e:
-        lista.insert(tk.END, f"Błąd: {str(e)}")
-
 #---------------------------------------------------------------------------------OKNO APLIKACJI
 okno = tk.Tk()
 okno.title("Program inwentaryzacji baru")#nazwa aplikacji
@@ -423,8 +363,6 @@ btn3.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 btn4 = tk.Button(gorny_panel, text="Usuń inwentaryzacje", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn4.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
-btn5 = tk.Button(gorny_panel, text="Wyświetl statystyki", command=akcja_5, bg="#261d1c", fg="#b3685b", activebackground="#453735")
-btn5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
 okno.mainloop()
 
