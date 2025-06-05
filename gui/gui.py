@@ -4,20 +4,27 @@ import openpyxl
 from datetime import date
 import os
 
-def wyczysc():
-    # Czyści prawy panel
-    for widget in prawy_panel.winfo_children():
-        widget.destroy()
+class PanelCzyszczenie:
+    def __init__(self, prawy_panel, lewy_panel, tlo_prawy, tlo_lewy):
+        self.prawy_panel = prawy_panel
+        self.lewy_panel = lewy_panel
+        self.tlo_prawy_panel = tlo_prawy
+        self.tlo_lewy_panel = tlo_lewy
 
-    # Odświeżenie tła 
-    tlo_prawe = tk.Label(prawy_panel, image=tlo_prawy_panel)
-    tlo_prawe.place(x=0, y=0, relwidth=1, relheight=1)
-    tlo_lewe = tk.Label(lewy_panel, image=tlo_lewy_panel)
-    tlo_lewe.place(x=0, y=0, relwidth=1, relheight=1)
+    def wyczysc(self):
+        self._czysc_panel(self.prawy_panel, self.tlo_prawy_panel)
+        self._czysc_panel(self.lewy_panel, self.tlo_lewy_panel)
+
+    def _czysc_panel(self, panel, tlo):
+        for widget in panel.winfo_children():
+            widget.destroy()
+        tlo_label = tk.Label(panel, image=tlo)
+        tlo_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 #---------------------------------------------------------------------------------LISTA PRODUKTÓW
 def akcja_1():
-    wyczysc()
+    cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
+    cleaner.wyczysc()
 
     # Pole wyszukiwania
     szukaj_frame = tk.Frame(lewy_panel, bg="#261d1c")
@@ -152,7 +159,8 @@ def akcja_1():
 
 #---------------------------------------------------------------------------------DODANIE INWENTARYZACJI
 def akcja_2():
-    wyczysc()
+    cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
+    cleaner.wyczysc()
     #Id
     id_tekst = tk.Label(prawy_panel, text="ID produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
@@ -226,7 +234,8 @@ def akcja_2():
 
 #---------------------------------------------------------------------------------EDYCJA INWENTARYZACJI
 def akcja_3():
-    wyczysc()
+    cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
+    cleaner.wyczysc()
     #Id
     id_tekst = tk.Label(prawy_panel, text="ID produktu podlegającego zmianie:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
     id_tekst.place(x=20, y=30)
@@ -277,7 +286,8 @@ def akcja_3():
         
 #---------------------------------------------------------------------------------USUWANIE INWENTARYZACJI 
 def akcja_4():
-    wyczysc()
+    cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
+    cleaner.wyczysc()
 
     #Id
     id_usuwanego = tk.Label(prawy_panel, text="ID usuwanego produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
@@ -309,33 +319,8 @@ def akcja_4():
 
 #---------------------------------------------------------------------------------STATYSTYKI
 def akcja_5():
-    wyczysc()
-
-    #Wyszukiwanie po ID
-    id_tekst = tk.Label(prawy_panel, text="ID produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    id_tekst.place(x=20, y=30)
-    pole_tekstowe = tk.Entry(prawy_panel, width=30, bg="#b3685b") 
-    pole_tekstowe.place(x=20, y=60)
-
-    #Przewidywana waga
-    przewidywana_waga_tekst = tk.Label(prawy_panel, text='Przewidywana waga produktu:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    przewidywana_waga_tekst.place(x=20, y=100)
-    pole_tekstowe5 = tk.Entry(prawy_panel, width=30, bg='#b3685b')
-    pole_tekstowe5.place(x=20, y=130)
-
-    #Przewidywana ilość butelek
-    przewidywana_il_butl_tekst = tk.Label(prawy_panel, text='Przewidywana ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    przewidywana_il_butl_tekst.place(x=20, y=170)
-    pole_tekstowe6 = tk.Entry(prawy_panel, width=30, bg='#b3685b')
-    pole_tekstowe6.place(x=20, y=200)
-
-    #Faktyczna waga
-    faktyczna_waga_tekst = tk.Label(prawy_panel, text="Faktyczna waga produktu:", bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    faktyczna_waga_tekst.place(x=20, y=240)
-
-    #Faktyczna ilość butelek
-    faktyczna_il_butl_tekst = tk.Label(prawy_panel, text='Faktyczna ilość butelek:', bg="#261d1c", fg="#b3685b", font=("Arial", 14))
-    faktyczna_il_butl_tekst.place(x=20, y=310)
+    cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
+    cleaner.wyczysc()
 
         # Utworzenie listy
     lista_frame = tk.Frame(lewy_panel, bg="#261d1c")
@@ -420,7 +405,7 @@ btn3.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 btn4 = tk.Button(gorny_panel, text="Usuń inwentaryzacje", command=akcja_4, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn4.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
-btn5 = tk.Button(gorny_panel, text="Wyświetl statystyki", command=akcja_5, bg="#261d1c", fg="#b3685b", activebackground="#453735")
+btn5 = tk.Button(gorny_panel, text="Wyświetl inwentaryzacje", command=akcja_5, bg="#261d1c", fg="#b3685b", activebackground="#453735")
 btn5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 
 okno.mainloop()
