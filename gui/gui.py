@@ -321,7 +321,6 @@ def akcja_4():
     przycisk_usun_z_bazy.place(x=20, y=100)
 
 
-<<<<<<< HEAD
 #---------------------------------------------------------------------------------STATYSTYKI
 def akcja_5():
     cleaner = PanelCzyszczenie(prawy_panel, lewy_panel, tlo_prawy_panel, tlo_lewy_panel)
@@ -357,8 +356,6 @@ def akcja_5():
     except Exception as e:
         lista.insert(tk.END, f"Błąd: {str(e)}")
 
-=======
->>>>>>> a942df92a9007976a15889813354bd13d5fba974
 #---------------------------------------------------------------------------------OKNO APLIKACJI
 okno = tk.Tk()
 okno.title("Program inwentaryzacji baru")#nazwa aplikacji
